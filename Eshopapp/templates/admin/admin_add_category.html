@@ -1,0 +1,71 @@
+
+{% extends 'admin/admin_home.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Left side: Add product category form -->
+        <div class="col-md-6">
+            <h1 class="contact_taital">Add product category</h1>
+            <form id ="myForm" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mail_section_1">
+                    <label for="category">Category:</label>
+                    <input class="form-control" type="text" name="category" style="width: 100%;" placeholder="Product category" required>
+                    <label for="start_price">Start price:</label>
+                    <input class="form-control" type="number" name="start_price" style="width: 100%;" placeholder="Starting Price" required>
+                    <label for="offer">Offer</label>
+                    <input class="form-control" type="text" name="offer" style="width: 100%;" placeholder="Offers">
+                    <label for="offer">Floor :</label>
+                    <input class="form-control" type="text" name="floor" style="width: 100%;" placeholder="Floor No.">
+                  
+                    <!-- Add the following input for the image field -->
+                    <label for="image">Image:</label>
+                    <input type="file" name="image" accept="image/*" required>
+                    
+                    <input type="submit" value="Save" class="btn btn-primary">
+                    <span><a href="/admin_view_category" class="btn btn-secondary">View Categories</a></span>
+                </div>
+            </form>
+            <script>
+                document.getElementById('myForm').addEventListener('submit', function() {
+                    alert('Category added Successfully!');
+                });
+            </script>
+        </div>
+
+<style>
+    /* Increase the width of text boxes and text areas */
+    input[type="text"], input[type="file"], textarea {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    /* Increase the height of the right-side and left-side divs */
+    .col-md-6 {
+        height: 500px;
+    }
+
+    /* Style for the product categories list */
+    .product-categories {
+        list-style: none;
+        padding: 0;
+    }
+
+    .product-categories li {
+        margin-bottom: 8px;
+        font-size: 16px;
+        color: #333;
+        background-color: #f4f4f4;
+        padding: 8px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+    }
+
+    .product-categories img {
+        margin-left: 10px;
+    }
+</style>
+{% endblock %}

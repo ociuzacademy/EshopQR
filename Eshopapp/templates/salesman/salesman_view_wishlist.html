@@ -1,0 +1,36 @@
+{% extends 'salesman/salesman_home.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2>Wishlist of {{ user.name }}</h2>
+    {% if wishlist_items %}
+        <table class="table table-bordered mt-3">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Product Image</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Price</th>
+                    <th>Color</th>
+                    <th>Warranty</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in wishlist_items %}
+                    <tr>
+                        <td><img src="/media/{{ item.products.image }}" width="100" alt="Product Image"></td>
+                        <td>{{ item.products.brand }}</td>
+                        <td>{{ item.products.model }}</td>
+                        <td>{{ item.products.our_price }}</td>
+                        <td>{{ item.products.color }}</td>
+                        <td>{{ item.products.warranty }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No products in wishlist.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

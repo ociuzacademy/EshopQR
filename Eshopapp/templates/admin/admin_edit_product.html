@@ -1,0 +1,108 @@
+{% extends 'admin/admin_home.html' %}
+{% block content %}
+{% comment %} <div class="contact_section layout_padding"> {% endcomment %}
+    <div class="container-fluid">
+        <h1 class="contact_taital">Update Products</h1>
+
+        <form id="myForm" method="post" enctype="multipart/form-data" style="padding-left: 300px; padding-right: 300px">
+            {% csrf_token %}
+            <div class="mail_section_1">
+                <div class="form-group">
+                    <label for="image"> Image:</label>
+                    <img src="{{ product.image.url }}" alt="Previous Image" style="max-width: 200px; max-height: 200px;">
+                </div>
+
+                
+                    
+
+                    <label for="brand">Brand:</label>
+                    <input class="form-control" type="text" name="brand" value="{{ product.brand }}" style="width: 100%;">
+
+                    <label for="model">Model:</label>
+                    <input class="form-control" type="text" name="model" value="{{ product.model }}" style="width: 100%;">
+                
+                    <label for="actualprice">Actual Price:</label>
+                    <input class="form-control" type="text" name="actual_price" value="{{ product.actual_price }}" style="width: 100%;">
+                    <label for="">Our Price:</label>
+                    <input class="form-control" type="text" name="our_price" value="{{ product.our_price }}" style="width: 100%;" readonly>
+                    <label for="discount">Discount:</label>
+                    <input class="form-control" type="text" name="discount" value="{{ product.discount }}" style="width: 100%;">
+                    <label for="otheroffers">Other offers:</label>
+                    <textarea class="form-control" name="other_offers" style="width: 100%;">{{ product.other_offers }}</textarea>
+                    <label for="size">Size:</label>
+                    <input class="form-control" type="text" name="size" value="{{ product.size }}" style="width: 100%;">
+     
+                    <label for="color">Color:</label>
+                    <input class="form-control" type="text" name="color" value="{{ product.color }}" style="width: 100%;">
+                
+                    <label for="warranty">Warranty:</label>
+                    <input class="form-control" type="text" name="warranty" value="{{ product.warranty }}" style="width: 100%;">
+            
+                    <label for="desc">Description:</label>
+                    <textarea class="form-control" name="desc" style="width: 100%;">{{ product.desc }}</textarea>
+                    <label for="section">Section:</label>
+                    <input class="form-control" type="text" name="section" value="{{ product.section }}" style="width: 100%;">
+                   
+                    <label>In Stock:</label>
+                <div class="form-check">
+                <input type="radio" class="form-check-input" id="instock_yes" name="instock" value="yes" {% if product.instock == 'yes' %}checked{% endif %}>
+                 <label class="form-check-label" for="instock_yes">Yes</label>
+                </div>
+
+                <div class="form-check">
+                <input type="radio" class="form-check-input" id="instock_no" name="instock" value="no" {% if product.instock == 'no' %}checked{% endif %}>
+                <label class="form-check-label" for="instock_no">No</label>
+                </div>
+                <br><label for="image"><b>New Image:</b></label>
+                    <input type="file" name="image" accept="image/*">
+                <!-- Add input fields for other fields as needed -->
+               <br>
+                <div class="btn-group" role="group" aria-label="Button group">
+                    <input type="submit" value="Save changes" class="btn btn-success">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin_view_products/{{ product.category_id }}" class="btn btn-dark">Back</a>
+                </div>
+                <br><br>
+                {% comment %} <label for="image"> Image:</label> {% endcomment %}
+                {% comment %} <img src="{{ product.qr_image_path.url  }}" alt="Previous Image" style="max-width: 200px;  max-height: 200px;"> {% endcomment %}
+                
+            </div>
+           
+        </form>
+        <script>
+            document.getElementById('myForm').addEventListener('submit', function() {
+                alert('Product Updated Successfully!');
+            });
+        </script>
+    </div>
+</div>
+<style>
+    .mail_section_1 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;  /* Center content horizontally */
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column; /* Stack label and input vertically */
+        margin-bottom: 15px;    /* Adjust the spacing between each form group */
+    }
+
+    .form-group label {
+        align-self: flex-start;  /* Align label to the left side of the form group */
+        margin-bottom: 5px;      /* Adjust the spacing between label and input */
+    }
+
+    .send_bt {
+        margin-top: 20px; /* Adjust the spacing after the submit button */
+        background-color: #000;
+        border: 6px solid #000;
+        color: #fff;
+    }
+
+    /* Increase the width of text boxes and text areas */
+    input[type="text"], textarea {
+        width: 500px;
+    }
+</style>
+{% endblock %}

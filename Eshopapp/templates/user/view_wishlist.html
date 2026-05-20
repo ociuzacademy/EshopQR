@@ -1,0 +1,52 @@
+{% extends 'user/user_home.html' %}
+
+{% block content %}
+    <!-- Header -->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                {% if num_items > 0 %}
+                    <h1 class="display-4 fw-bolder" style="color: white;">Your Wishlist</h1>
+                    <p class="lead mb-0" style="color: #007bff;">You have <span style="color: #e44d26;">{{ num_items }}</span> items in your Wishlist</p>
+                {% else %}
+                    <p class="lead mb-0">Your wishlist is empty.</p>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <div class="container mt-5">
+        <div class="row">
+            {% for item in wishlist_details %}
+                <div class="col-md-3 mb-3">
+                    <div class="card h-100" style="border: 1px solid #007bff; border-radius: 10px; overflow: hidden; transition: transform 0.3s;">
+                        <img src="{{ item.product.image.url }}" class="card-img-top" alt="{{ item.product.model }}" style="height: 200px; object-fit: cover; border-bottom: 1px solid #007bff;">
+                        <div class="card-body" style="padding: 15px;">
+                            <h2 style="color: #e44d26; font-size: 1.2rem; margin-bottom: 5px;">{{ item.product.brand }}</h2>
+                            <h3 style="font-size: 1rem; margin-bottom: 10px; color: #007bff;">{{ item.product.model }}</h3>
+                            <!-- Additional product details if needed -->
+                            <!-- <p class="card-text" style="font-size: 0.9rem; color: #555;">{{ item.product.description }}</p> -->
+                        </div>
+                        <!-- Add a button to remove the product from the wishlist -->
+                        <div class="card-footer" style="background-color: #f8f9fa; text-align: center; border-top: 1px solid #007bff;">
+                            <form method="post" action="/remove_from_wishlist/">
+                                {% csrf_token %}
+                                <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="javascript:history.go(-1);" class="btn btn-dark">Back</a>
+    </div>
+
+    <style>
+        /* Optional: Add custom styles here */
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style><br><br><br><br><br><br><br><br>
+{% endblock %}

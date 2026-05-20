@@ -1,0 +1,51 @@
+{% extends 'salesman/salesman_home.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card p-4 shadow">
+        <h2 class="text-center mb-4">Welcome, {{ user.name }}</h2>
+
+        <div class="text-center mb-4">
+            <h2 style="color: green;">Current Status: <strong>{{ user.status|title }}</strong></h2>
+        </div>
+
+        <form action="{% url 'salesman_update_status' %}" method="post" class="text-center">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success btn-lg">
+                {% if user.status == 'online' %}
+                    Set as Busy
+                {% else %}
+                    Set as Online
+                {% endif %}
+            </button>
+        </form>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .card {
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        color: #343a40;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+</style>
+
+{% endblock %}

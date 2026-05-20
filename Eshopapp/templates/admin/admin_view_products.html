@@ -1,0 +1,138 @@
+{% extends 'admin/admin_home.html' %}
+
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<div class="contact_section layout_padding">
+    <div class="container-fluid">
+        <h1 class="contact_taital">View Products</h1>
+
+        <!-- Add a search by category dropdown -->
+        <a href="/admin_add_products/{{category.id}}" class="btn btn-primary">Add new Products</a>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Serial Number</th>
+                    <th>Product Image</th>
+                    <th>Model</th>
+                    <th>Brand</th>
+                    <th>Actual Price</th>
+                    <th>Offer Price</th>
+                    <th>Discount</th>
+                    <th>Other offers</th>
+                    <th>Size</th>
+                    <th>Color</th>
+                    <th>Warranty</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>
+                            {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="{{ product.model }} Image" style="max-width: 100px; max-height: 100px;">
+                            {% endif %}
+                        </td>
+                        <th><h3>{{ product.model }}</h3></th>
+                        <th style="color:blue"><h3>{{ product.brand }}</h3></th>
+                        <td><h3>${{ product.actual_price }}</h3></td>
+                        <td><h3>${{ product.our_price }}</h3></td>
+                        <td><h3>{{ product.discount }}%</h3></td>
+                        <td><h3>{{ product.other_offers }}</h3></td>
+                        <td><h3>{{ product.size }}</h3></td>
+                        <td><h3>{{ product.color }}</h3></td>
+                        <td><h3>{{ product.warranty }}</h3></td>
+                        <td><h3>
+                            {{ product.desc|truncatechars:100 }}
+                            {% if product.desc|length > 100 %}
+                                <span class="fullDescription" style="display: none;">{{ product.desc }}</span>
+                                <a href="#" class="readMoreLink" onclick="toggleDescription(this); return false;">(Read more)</a>
+                                <a href="#" class="readLessLink" style="display: none;" onclick="toggleDescription(this); return false;">(Read less)</a>
+                            {% endif %}
+                        </h3> </td>
+                        <td>
+                            <a href="/admin_edit_product/{{ product.id }}" class="btn btn-success btn-sm">Update</a>
+                            <a href="/admin_delete_product/{{ product.id }}" class="btn btn-danger btn-sm" onclick="deleteProduct({{ product.id }})">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div class="pagination mt-4">
+            <span class="step-links">
+                {% if products.has_previous %}
+                    <a href="?page=1" class="page-link">&laquo; first</a>
+                    <a href="?page={{ products.previous_page_number }}" class="page-link">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ products.number }} of {{ products.paginator.num_pages }}.
+                </span>
+
+                {% if products.has_next %}
+                    <a href="?page={{ products.next_page_number }}" class="page-link">next</a>
+                    <a href="?page={{ products.paginator.num_pages }}" class="page-link">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+
+        <style>
+            .pagination {
+                display: flex;
+                justify-content: center;
+                margin-top: 20px;
+            }
+
+            .page-link {
+                color: #007bff;
+                cursor: pointer;
+                text-decoration: none;
+                padding: 8px 16px;
+                margin: 0 5px;
+                border-radius: 5px;
+                background-color: #fff;
+                border: 1px solid #007bff;
+            }
+
+            .page-link:hover {
+                background-color: #007bff;
+                color: #fff;
+            }
+
+            .current {
+                padding: 8px 16px;
+                margin: 0 5px;
+                border-radius: 5px;
+                background-color: #007bff;
+                color: #fff;
+            }
+        </style>
+
+        <script>
+            function toggleDescription(link) {
+                var cardText = $(link).closest('td').find('.fullDescription');
+                var readMoreLink = $(link).closest('td').find('.readMoreLink');
+                var readLessLink = $(link).closest('td').find('.readLessLink');
+
+                cardText.toggle();
+                readMoreLink.toggle();
+                readLessLink.toggle();
+            }
+
+            function deleteProduct(productId) {
+                // Implement your delete product logic here
+                // You may want to show a confirmation dialog before actually deleting
+            }
+
+            // Initial filter on page load
+            $(document).ready(function () {
+                $('#categorySelect').change(filterProducts);
+            });
+        </script>
+    </div>
+</div><br><br>
+{% endblock %}

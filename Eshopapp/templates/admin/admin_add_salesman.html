@@ -1,0 +1,58 @@
+{% extends 'admin/admin_home.html' %}
+{% block content %}
+<div class="contact_section layout_padding">
+    <div class="container-fluid">
+         
+  
+      <h1 class="contact_taital">Add New Salesman</h1>
+      
+     
+
+            <form action="/admin_add_salesman/" method="post" enctype="multipart/form-data" style="padding-left:300px;padding-right:300px">
+                {% csrf_token %}
+                
+              <div class="mail_section_1">
+                <input type="text" class="mail_text" style="height: 40px;" placeholder="Name" name="name"  name="name" pattern="[A-Za-z ]+"title="Only letters are allowed" required>
+                <input type="email" class="mail_text"style="height: 40px;" placeholder="Email" name="email" required>
+                <input type="number" class="mail_text" style="height: 40px;" placeholder="Phone Number" name="phn" pattern="[0-9]{10}" title="Please enter a 10-digit phone number" required>
+                <input type="text" class="mail_text"style="height: 40px;" placeholder="Address" name="adrs" required>
+                <input type="text" class="mail_text"style="height: 40px;" placeholder="Place" name="plc" required>
+                <input type="text" class="mail_text" style="height: 40px;"placeholder="employee ID" name="licence_num" required>
+                <input type="text" class="mail_text" style="height: 40px;"placeholder="Username" name="uname" required>
+                <button type="submit" value="Submit"class="send_bt" style="background-color: rgb(0, 0, 10); border: 6px solid #000; color: #fff;">
+                    <div class="send_bt">SUBMIT</div>
+                </button><span><a href="/admin_view_salesman/" class="btn btn-primary">Back</a></span>
+            </form>
+            {% if error_message %}
+            <p style="color: red;">{{ error_message }}</p>
+            {% endif %}
+            {% if success_message %}
+            <script>
+                alert("{{ success_message }}");
+            </script>
+        {% endif %}
+           <div>
+          </div>
+          
+          <br>
+        </div>
+      </div>
+    </div>
+  
+
+
+  <style>
+    .mail_section_1 {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mail_text {
+        margin-bottom: 2px; /* Adjust the value to set the desired spacing between input fields */
+    }
+
+    .send_bt {
+        margin-top: 10px; /* Adjust the value to set the desired spacing after the submit button */
+    }
+</style>
+  {% endblock %}

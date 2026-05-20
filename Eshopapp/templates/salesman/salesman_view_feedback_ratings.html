@@ -1,0 +1,72 @@
+{% extends 'salesman/salesman_home.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Hello, {{ salesman.name }} - View Your Feedbacks & Ratings</h2>
+
+        {% if feedback_instances %}
+            <div class="row justify-content-center">
+                {% for feedback_instance in feedback_instances %}
+                    <div class="col-md-8 mb-4">
+                        <div class="card border-primary shadow-lg">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">{{ feedback_instance.user.name }}</h5>
+                                <p class="card-text">{{ feedback_instance.feedback }}</p>
+
+                                <p class="card-text">
+                                    <strong>Ratings:</strong>
+                                    {% for star in "12345" %}
+                                        {% if star|add:0 <= feedback_instance.ratings %}
+                                            <span style="color: #FFD700; font-size: 1.2em;">&#9733;</span>
+                                        {% else %}
+                                            <span style="color: #A9A9A9; font-size: 1.2em;">&#9734;</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </p>
+
+                                <p class="card-text text-muted"><strong>Date:</strong> {{ feedback_instance.date }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center" role="alert">
+                No feedbacks available for {{ salesman.name }}.
+            </div>
+        {% endif %}
+    </div>
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .card {
+            border: 2px solid #007BFF;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+        }
+
+        .card-title {
+            font-size: 1.8em;
+            color: #007BFF;
+        }
+
+        .card-text {
+            font-size: 1.4em;
+        }
+
+        .alert {
+            font-size: 1.6em;
+            background-color: #cce5ff;
+            color: #004085;
+            border-color: #b8daff;
+        }
+    </style>
+{% endblock %}

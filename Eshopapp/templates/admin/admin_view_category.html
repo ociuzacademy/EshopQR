@@ -1,0 +1,95 @@
+{% extends 'admin/admin_home.html' %}
+
+{% block content %}
+<a href="/admin_add_category" class="btn btn-dark">Back</a>
+  <h1 style="color:blue"><b>Product Categories</b></h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>SLNO.</th>
+        <th>CATEGORY</th>
+        <th>START PRICE</th>
+        <th>OFFER</th>
+        <th>FLOOR</th>
+        <th>IMAGE</th>
+        <th>QR CODE</th>
+        <th>ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for category in categories %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <th><h2>{{ category.category }}</h2></th>
+          <th><h2>₹{{ category.start_price }}</h2></th>
+          <th><h2>{{ category.offer }}</h2></th>
+          <th><h2>{{ category.floor }}</h2></th>
+          <td>
+            {% if category.image %}
+              <img src="{{ category.image.url }}" alt="{{ category.category }} Image" style="max-width: 100px; max-height: 100px; min-width: 100px; min-height: 100px;">
+            {% endif %}
+          </td>
+          <td>
+            {% if category.qr_image_path %}
+              <img src="{{ category.qr_image_path.url }}" alt="{{ category.category }} QR Code" style="max-width: 100px; max-height: 100px; min-width: 100px; min-height: 100px;">
+            {% endif %}
+          </td>
+          <td>
+            <!-- Update link -->
+            <a href="/admin_edit_category/{{category.id}}" class="btn btn-success">Update</a>
+            <a href="/admin_delete_category/{{category.id}}" class="btn btn-danger">Delete</a>
+            {% comment %} <a href="/admin_view_products/{{category.id}}" class="btn btn-secondary">View Products</a> {% endcomment %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Pagination controls -->
+  <div class="pagination">
+    <span class="step-links">
+        {% if categories.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ categories.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ categories.number }} of {{ categories.paginator.num_pages }}.
+        </span>
+
+        {% if categories.has_next %}
+            <a href="?page={{ categories.next_page_number }}">next</a>
+            <a href="?page={{ categories.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+  </div>
+
+  <style>
+    /* Add this CSS to your existing stylesheet or create a new one */
+
+    /* ... (your existing styles) ... */
+    
+    /* Pagination styles */
+    .pagination {
+        display: inline-block;
+        padding: 10px;
+    }
+
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+    }
+
+    .pagination a:hover {
+        background-color: #ddd;
+    }
+
+    .pagination .current {
+        background-color: #4CAF50;
+        color: white;
+    }
+  </style>
+{% endblock %}

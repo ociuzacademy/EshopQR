@@ -1,0 +1,47 @@
+{% extends 'admin/admin_home.html' %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>All User Requests</h2>
+        
+        <a href="/admin_allocate_user_requests/" class="btn btn-primary">Allocate Salesman</a><br><br>
+                        
+        {% if all_user_requests %}
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Serial Number</th>
+                            <th>User ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Category of Shopping</th>
+                            <!-- Add other headers as needed -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user_request in all_user_requests reversed %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ user_request.user.id }}</td>
+                                <td>{{ user_request.user.name }}</td>
+                                <td>{{ user_request.user.email }}</td>
+                                <td>{{ user_request.categories }}</td>
+                                <!-- Add other fields as needed -->
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No user requests found.</p>
+        {% endif %}
+
+        {% if messages %}
+            <script>
+                var message = "{% for message in messages %}{% if message.tags == 'warning' %}{{ message }}{% endif %}{% endfor %}";
+                alert(message);
+            </script>
+        {% endif %}
+    </div><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

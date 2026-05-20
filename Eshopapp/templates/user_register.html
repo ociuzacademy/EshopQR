@@ -1,0 +1,88 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="contact_section layout_padding">
+    <div class="container-fluid">
+        <h1 class="contact_taital"> <i style="color: darkblue;">New User???</i> Register Here..</h1>
+        <p class="contact_text">
+        </p>
+        <div class="contact_section_2">
+            <div class="row">
+                <div class="col-md-6 padding_left_0">
+                    <div class="map_main">
+                        <div class="map-responsive">
+                            <img src="/static/images/img1.jpg" alt="Image" style="width: 100%; height: 100%; border-radius: 50%;">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <form action="/user_register/" method="post">
+                        {% csrf_token %}
+                        <div class="mail_section_1">
+                            <!-- Display error message near the email input -->
+                            {% if error_message %}
+                                <p style="color: red;">{{ error_message }}</p>
+                            {% endif %}
+
+                            <input type="text" class="mail_text" style="height: 40px;" placeholder="Name" name="name" required>
+                            <input type="email" class="mail_text" style="height: 40px;" placeholder="Email" name="email" required>
+                            <input type="number" class="mail_text" style="height: 40px;" placeholder="Phone Number" name="phn" pattern="[0-9]{10}" title="Please enter a 10-digit phone number" required>
+                            <input type="text" class="mail_text" style="height: 40px;" placeholder="Address" name="adrs">
+                            <input type="text" class="mail_text" style="height: 40px;" placeholder="Place" name="plc">
+                            <input type="text" class="mail_text" style="height: 40px;" placeholder="Username" name="uname" required>
+                            <input type="password" class="mail_text" style="height: 40px;" placeholder="Password" name="pswd" pattern="^(?=.*\d)(?=.*\W).{8,}$" title="Password must be at least 8 characters long and include at least one digit, one lowercase letter, one uppercase letter, and one special character." required>
+                            <input type="password" class="mail_text" style="height: 40px;" placeholder="Confirm Password" name="cpswd" pattern="^(?=.*\d)(?=.*\W).{8,}$" title="Password must be at least 8 characters long and include at least one digit, one lowercase letter, one uppercase letter, and one special character." oninput="validatePassword()" required>
+                            <div id="password-error" style="color: red;"></div>
+                            <button type="submit" class="send_bt" style="background-color: #000; border: 6px solid #000; color: #fff;">
+                                <div class="send_bt">Submit</div>
+                            </button><br>
+                        </div>
+                    </form>
+
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if registration_success %}
+    <script>
+        // Display alert in a pop-up window
+        var message = "Registration successful. You can only login after admin approval.";
+        alert(message);
+
+        // Redirect to the login page after clicking "OK"
+        window.location.href = "/login";
+    </script>
+{% endif %}
+
+<script>
+    function validatePassword() {
+        var password = document.getElementsByName('pswd')[0].value;
+        var confirmPassword = document.getElementsByName('cpswd')[0].value;
+        var errorDiv = document.getElementById('password-error');
+
+        if (password !== confirmPassword) {
+            errorDiv.textContent = "Passwords do not match.";
+        } else {
+            errorDiv.textContent = "";
+        }
+    }
+</script>
+
+<style>
+    .mail_section_1 {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mail_text {
+        margin-bottom: 2px; /* Adjust the value to set the desired spacing between input fields */
+    }
+
+    .send_bt {
+        margin-top: 10px; /* Adjust the value to set the desired spacing after the submit button */
+    }
+</style>
+
+{% endblock %}

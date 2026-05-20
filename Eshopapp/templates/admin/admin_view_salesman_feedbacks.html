@@ -1,0 +1,40 @@
+{% extends 'admin/admin_home.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        {% comment %} <h1 class="mb-4">Salesman Feedbacks</h1> {% endcomment %}
+
+        <h2>{{ salesman.name }} - Feedbacks</h2>
+
+        {% if feedback_instances %}
+            {% for feedback_instance in feedback_instances %}
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ feedback_instance.user.name }}</h3>
+                                <p class="card-text">{{ feedback_instance.feedback }}</p>
+                                
+                                <p class="card-text"><strong>Ratings:</strong>
+                                    {% for star in "12345" %}
+                                        {% if star|add:0 <= feedback_instance.ratings %}
+                                            <span style="color: gold;">&#9733;</span> <!-- Yellow star for a filled star -->
+                                        {% else %}
+                                            <span style="color: grey;">&#9734;</span> <!-- Grey star for an empty star -->
+                                        {% endif %}
+                                    {% endfor %}
+                                </p>
+                                
+                                <p class="card-text"><strong>Date:</strong> {{ feedback_instance.date }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                No feedbacks available for {{ salesman.name }}.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

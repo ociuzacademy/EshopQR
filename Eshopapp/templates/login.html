@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+{% block content %}
+{% comment %} <div class="contact_section layout_padding">
+    <div class="container-fluid"> {% endcomment %}
+       {% comment %} <h1 class="contact_taital">Login</h1>
+      <p class="contact_text">
+      </p> {% endcomment %}
+      <div class="contact_section_2">
+        <div class="row">
+          <div class="col-md-6 padding_left_0">
+            <div class="map_main">
+                <div class="map-responsive">
+                  {% comment %} <img src="6424670.jpg" alt="Image" style="width: 100%; height: 100; border-radius: 50%;"> {% endcomment %}
+                
+                  <img src="/static/images/img1.jpg" alt="Image" style="width: 100%; height: 100; border-radius: 50%;">
+                </div>
+            </div>
+        </div>
+          <div class="col-md-6">
+            <form method="post" action="{% url 'login' %}">
+            {% comment %} <form method="post" action="{% url 'login' %}?next={{ request.GET.next }}"> {% endcomment %}
+              {% csrf_token %}
+              <div class="mail_section_1">
+                <h1 class="contact_taital">Login</h1>
+                <input type="email" class="mail_text" placeholder="Email" name="email" required>
+
+                <input type="password" class="mail_text" placeholder="Password" name="pswd" required><br><br>
+                <button type="submit" class="send_bt" style="background-color: #000; border: 7px solid #000; color: #fff;">
+                    <div class="send_bt">LOG IN</div>
+                </button>
+                <a href="/user_register/">new user?? register here</a>
+              </div>
+            </form>
+          </div>
+          
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h1>{{login_success}}
+  {% if login_success %}
+  <script>
+      // Update the URL without triggering a full page reload
+      history.pushState({}, '', '/admin_home/');
+  </script>
+{% endif %}
+
+  <style>
+    .mail_section_1 {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mail_text {
+        margin-bottom: 6px; /* Adjust the value to set the desired spacing between input fields */
+    }
+
+    .send_bt {
+        margin-top: 10px; /* Adjust the value to set the desired spacing after the submit button */
+    }
+</style>
+  {% endblock %}

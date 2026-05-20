@@ -1,0 +1,26 @@
+{% extends 'salesman/salesman_home.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4">My Notifications</h1>
+
+        <div class="jumbotron notification-section">
+            <h2>Notifications:</h2>
+            <ul class="list-group">
+                {% for notification in salesman_notifications|slice:":3" %}
+                    <li class="list-group-item shadow-sm mb-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            {{ notification.message }}
+                            <span class="badge badge-secondary">{{ notification.timestamp }}</span>
+                        </div>
+                        <div class="text-right mt-2">
+                            <a href="{% url 'salesman_view_wishlist' notification.user_id %}" class="btn btn-primary">View Wishlist</a>
+
+                            {% comment %} <a href="{% url 'view_wishlist' user_id=notification.user_id %}" class="btn btn-primary">View Wishlist</a> {% endcomment %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+<!-- salesman_allocation_notification.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Request Allocation</title>
+</head>
+<body>
+    <h1>New Request Allocation</h1>
+    <p>
+        Hello {{ allocated_salesman.name }},
+        <br>
+        You have been allocated a new request from user {{ user_request.user.name }}.
+        <br>
+        Contact: {{ user_request.user.phn }}
+    </p>
+    <!-- You can customize the email content as needed -->
+</body>
+</html>

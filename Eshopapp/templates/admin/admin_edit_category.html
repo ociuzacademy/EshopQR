@@ -1,0 +1,64 @@
+{% extends 'admin/admin_home.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="contact_taital">Edit Product Category</h1>
+            <form id="myForm" action="/admin_edit_category/{{category.id}}/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+               
+                <div class="mail_section_1">
+                    <label for="category"><b>Category:</b></label>
+                    <input class="form-control" type="text" name="category" style="width: 100%;" value="{{ category.category }}">
+                    <label for="start_price"><b>Start price:</b></label>
+                    <input class="form-control" type="number" name="start_price" style="width: 100%;" value="{{ category.start_price }}">
+                    <label for="offer"><b>Offer:<b></label>
+                    <input class="form-control" type="text" name="offer" style="width: 100%;" value="{{ category.offer }}">
+                    <label for="offer"><b>Floor:<b></label>
+                    <input class="form-control" type="text" name="floor" style="width: 100%;" value="{{ category.floor }}">
+                        
+                    <!-- Display existing image -->
+                    {% if category.image %}
+                        <p><b>Existing Image:</b></p>
+                        <img src="{{ category.image.url }}" alt="{{ category.category }} Image" style="max-width: 100px; max-height: 100px; min-width: 100px; min-height: 100px;">
+                    {% endif %}
+                    
+                    <!-- Update the image -->
+                    <br><label for="image"><b>New Image:</b></label>
+                    <input type="file" name="image" accept="image/*">
+                    
+                    <input type="submit" value="Submit" class="btn btn-success">
+                    <span><a href="/admin_view_category" class="btn btn-dark">Back</a></span>
+                </div><br><br>
+            </form>
+            <script>
+                document.getElementById('myForm').addEventListener('submit', function() {
+                    alert('Category Updated Successfully!');
+                });
+            </script>
+            
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Increase the width of text boxes and text areas */
+    input[type="text"], input[type="file"], input[type="number"] {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    /* Style for the form */
+    .mail_section_1 {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* Style for existing images */
+    img {
+        margin-bottom: 10px;
+    }
+</style>
+
+{% endblock %}

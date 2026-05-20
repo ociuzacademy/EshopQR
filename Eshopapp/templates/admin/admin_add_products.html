@@ -1,0 +1,73 @@
+{% extends 'admin/admin_home.html' %}
+
+{% block content %}
+<div class="contact_section layout_padding">
+    <div class="container-fluid">
+        <h1 class="contact_taital">Add New Products</h1>
+        <form  id="myForm" method="post" enctype="multipart/form-data" style="padding-left:300px;padding-right:300px">
+            {% csrf_token %}
+            <div class="mail_section_1">
+                Upload Image:
+                <input type="file" class="form-control" style="height: 50px;" name="image" accept="image/*" required><br>
+                
+                <!-- Dropdown for Categories -->
+                
+                
+                <input  type="text" class="form-control" style="height: 40px;" placeholder="Brand" name="brand" required><br>
+                <input type="text" class="form-control" style="height: 40px;" placeholder="Model" name="model" required><br>
+                {% comment %} <input type="text" class="mail_text" style="height: 40px;" placeholder="Price" name="price" required> {% endcomment %}
+                <input type="number" class="form-control" style="height: 40px;" placeholder="Actual Price" name="actual_price" required><br>
+                {% comment %} <input type="number" class="form-control" style="height: 40px;" placeholder="Our Price" name="our_price"><br> {% endcomment %}
+                <input type="number" class="form-control" style="height: 40px;" placeholder="Discount" name="discount"><br>
+                <textarea class="form-control" style="height: 80px;" placeholder="Other offers" name="other_offers"></textarea><br>
+                <input type="text" class="form-control" style="height: 40px;" placeholder="Size" name="size" required><br>
+                <input type="text" class="form-control" style="height: 40px;" placeholder="Color" name="color" required><br>
+                <input type="text" class="form-control" style="height: 40px;" placeholder="Warranty" name="warranty" required><br>
+                <textarea class="form-control" style="height: 80px;" placeholder="Description" name="desc" required></textarea><br>
+                <input type="text" class="form-control" style="height: 40px;" placeholder="Section" name="section" required><br>
+                In Stock:
+                <label class="form-check-inline">
+                    <input type="radio" class="form-check-input" id="instock_yes" name="instock" value="yes" required>
+                    Yes
+                </label>
+                
+                <label class="form-check-inline">
+                    <input type="radio" class="form-check-input" id="instock_no" name="instock" value="no" required>
+                    No
+                </label>
+                <input type="hidden" name="category_id" value="{{ category_id }}">
+                <button type="submit" class="send_bt" style="background-color: #000; border: 6px solid #000; color: #fff;">
+                    <div class="send_bt">Submit</div>
+                </button>
+               
+            </div>
+            <a href="javascript:history.go(-1);" class="btn btn-danger">Back</a>
+        </form>
+        <script>
+            document.getElementById('myForm').addEventListener('submit', function() {
+                alert('Product added Successfully!');
+            });
+        </script>
+        {% comment %} <div><img src="{{ qr_image_path.url }}" alt="QR Code"></div> {% endcomment %}
+        <br>
+    </div>
+</div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+    .mail_section_1 {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    .mail_text {
+        margin-bottom: 10px;
+    }
+
+    .send_bt {
+        margin-top: 10px;
+    }
+    
+</style>
+
+{% endblock %}

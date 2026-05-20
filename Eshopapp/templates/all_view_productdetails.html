@@ -1,0 +1,49 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="product-details">
+    <title>{{ product.name }} Details</title>
+    <h1 style="color: #333; font-size: 2rem; margin-bottom: 15px;">{{ product.model }} Details</h1>
+
+    <div style="margin-bottom: 15px;">
+        <h2 style="color: #007BFF; font-size: 1.5rem;">Floor: {{ category_floor }}</h2>
+        <h2 style="color: #007BFF; font-size: 1.5rem;">Section: {{ product.section }}</h2>
+    </div>
+
+    <img src="{{ product.image.url }}" alt="{{ product.brand }}" style="max-width: 300px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 20px;">
+
+    <b style="font-size: 1.2rem; color: #333;">Brand:</b> <b>{{ product.brand }}</b><br>
+    <b style="font-size: 1.2rem; color: #333;">Model:</b> {{ product.model }}<br>
+    <b style="font-size: 1.2rem; color: red;">Warranty:</b> {{ product.warranty }}<br>
+    <b style="font-size: 1.2rem; color: #333;">Color:</b> {{ product.color }}<br>
+    <b style="font-size: 1.2rem; color: #333;">Price: <s>Rs.{{ product.actual_price }}</s>&nbsp;&nbsp; Rs.{{ product.our_price }}</b><br>
+
+    <div class="product-description" style="margin-top: 20px;">
+        <b style="font-size: 1.2rem; color: #333;">Product Description:</b> <br>
+        <ul style="list-style-type: disc; margin-left: 20px; color: #333;">
+            {{ product.desc|linebreaks}}
+        </ul>
+    </div>
+    <b style="font-size: 1.2rem; color: #333;">Other Offers:</b> {{ product.other_offers }}<br>
+    <a href="javascript:history.go(-1);" class="btn btn-danger">Back</a>
+</div>
+
+<style>
+    /* Add your custom styles here */
+    .product-details {
+        border: 1px solid #ccc;
+        padding: 20px;
+        width: 60%;
+        margin: 0 auto; /* Center the box horizontally */
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    .product-description {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: #333;
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}

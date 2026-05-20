@@ -1,0 +1,86 @@
+{% extends 'admin/admin_home.html' %}
+{% block content %}
+<div class="contact_section layout_padding">
+    <div class="container-fluid">
+        <h1 class="contact_taital">Edit Salesman</h1>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-xxxxxx" crossorigin="anonymous" />
+
+        <form action="/admin_edit_salesman/{{ salesman.id }}/" method="post" enctype="multipart/form-data" style="padding-left:300px;padding-right:300px">
+            {% csrf_token %}
+
+            <div class="mail_section_1">
+                <input type="text" class="mail_text" style="height: 40px;" placeholder="Name" name="name" value="{{ salesman.name }}" pattern="[A-Za-z ]+"title="Only letters are allowed" required>
+                <input type="password" class="mail_text password-input" placeholder="Password" name="pswd" value="{{ salesman.pswd }}" id="passwordInput" required>
+                <i class="far fa-eye eye-icon" id="eyeIcon" onclick="togglePasswordVisibility()"></i>
+                <input type="email" class="mail_text" style="height: 40px;" placeholder="Email" name="email" value="{{ salesman.email }}" required>
+                <input type="tel" class="mail_text" style="height: 40px;" placeholder="Phone Number" name="phn" value="{{ salesman.phn }}" pattern="[0-9]{10}" title="Please enter a 10-digit phone number" required>
+                <input type="text" class="mail_text" style="height: 40px;" placeholder="Address" name="adrs" value="{{ salesman.adrs }}" required>
+                <input type="text" class="mail_text" style="height: 40px;" placeholder="Place" name="plc" value="{{ salesman.plc }}" required>
+                <input type="text" class="mail_text" style="height: 40px;" placeholder="Employee ID" name="licence_num" value="{{ salesman.licence_num }}" required>
+                <input type="text" class="mail_text" style="height: 40px;" placeholder="Username" name="uname" value="{{ salesman.uname }}" required>
+                <button type="submit" class="send_bt" style="background-color: #000; border: 6px solid #000; color: #fff;">
+                    <div class="send_bt">UPDATE</div>
+                </button><span><a href="/admin_view_salesman/" class="btn btn-primary">Back</a></span>
+            </div>
+            
+        </form>
+        
+        {% if success_message %}
+            <script>
+                alert("{{ success_message }}");
+            </script>
+        {% endif %}
+        
+
+        <script>
+            function togglePasswordVisibility() {
+                var passwordInput = document.getElementById("passwordInput");
+                var eyeIcon = document.getElementById("eyeIcon");
+            
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    eyeIcon.className = "far fa-eye-slash eye-icon"; // Eye open icon
+                } else {
+                    passwordInput.type = "password";
+                    eyeIcon.className = "far fa-eye eye-icon"; // Eye closed icon
+                }
+            }
+            </script>
+        <br>
+    </div>
+</div>
+
+<style>
+    
+        .password-container {
+            position: relative;
+        }
+    
+        .password-input {
+            height: 40px;
+            padding-right: 40px; /* Space for the eye icon */
+        }
+    
+        .eye-icon {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+    .mail_section_1 {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mail_text {
+        margin-bottom: 2px; /* Adjust the value to set the desired spacing between input fields */
+    }
+
+    .send_bt {
+        margin-top: 10px; /* Adjust the value to set the desired spacing after the submit button */
+    }
+</style>
+
+{% endblock %}

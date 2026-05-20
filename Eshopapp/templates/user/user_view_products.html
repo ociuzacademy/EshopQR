@@ -1,0 +1,86 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder" style="color:white">Product Categories</h1>
+        </div>
+    </div>
+</header>
+
+<!-- Section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5">
+            {% for product in products %}
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 border border-dark position-relative">
+                        <!-- Product image -->
+                        <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.name }}" style="max-height: 100px object-fit: contain;" />
+                        
+                        <!-- Product discount badge -->
+                        {% if product.discount %}
+                            <div class="position-absolute top-0 end-0 mt-2 me-2">
+                                <span class="badge bg-danger rounded-circle" style="font-size: 1.5rem; color: white;">{{ product.discount }}hii</span>
+                            </div>
+                        {% endif %}
+                        
+                        <!-- Product details -->
+                        <div class="card-body p-3">
+                            <div class="text-center">
+                                <!-- Product name -->
+                                <h5 class="fw-bolder">{{ product.brand }} {{ product.model }}</h5>
+                                
+                                <!-- Product price -->
+                                <p class="fw-bold"><strong>₹<del>{{ product.actual_price }}</del> - ₹{{ product.our_price }}</strong></p>
+                            </div>
+                        </div>
+                        
+                        <!-- Product actions -->
+                        <!-- Update the button's onclick attribute to trigger the add_to_wishlist view -->
+                        <button class="btn btn-danger love-btn" id="loveBtn{{ product.id }}" onclick="addToWishlist({{ product.id }})">
+                            <i class="bi bi-heart-fill"></i> Add to wishlist
+                        </button>
+
+<!-- JavaScript function to trigger the add_to_wishlist view -->
+                        <script>
+                function addToWishlist(productId) {
+                 // Make an AJAX request or redirect to the add_to_wishlist view URL
+                window.location.href = `/user_add_to_wishlist/${productId}/`;
+                }
+                </script>
+                </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+</footer>
+
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css">
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+
+<!-- JavaScript function to toggle love button -->
+<script>
+    function toggleLove(productId) {
+        var loveBtn = document.getElementById('loveBtn' + productId);
+        if (loveBtn.classList.contains('btn-outline-danger')) {
+            loveBtn.classList.remove('btn-outline-danger');
+            loveBtn.classList.add('btn-danger');
+        } else {
+            loveBtn.classList.remove('btn-danger');
+            loveBtn.classList.add('btn-outline-danger');
+        }
+    }
+</script>
+{% endblock %}

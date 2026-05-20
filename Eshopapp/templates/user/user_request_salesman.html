@@ -1,0 +1,34 @@
+<!-- request_salesman.html -->
+{% extends 'user/user_home.html' %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card p-4">
+          <h2 class="text-center mb-4">Request for a Salesman</h2>
+          <form id='myForm' method="post">
+            {% csrf_token %}
+            <!-- Assuming you have a user session, adjust this based on your user session handling -->
+            {% comment %} <input type="hidden" name="user_id" value="{{ user_id }}"> {% endcomment %}
+            
+            <div class="mb-3">
+              <label for="categories" class="form-label">Categories:</label>
+              <textarea class="form-control" name="categories" rows="4" placeholder="Categories of products you want to buy" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-success">Submit Request</button>
+            {% comment %} <a href="/user_view_salesman/" class="btn btn-primary">ADD SALESMAN RATING</a> {% endcomment %}
+          </form>
+          
+        </div>
+      </div>
+    </div>
+    <script>
+      document.getElementById('myForm').addEventListener('submit', function() {
+          alert('Request Submitted Successfully!');
+      });
+  </script>
+  </div>
+ <br><br><br><br><br><br><br><br>
+{% endblock %}

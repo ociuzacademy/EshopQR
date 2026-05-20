@@ -1,0 +1,134 @@
+{% extends 'user/user_home.html' %}
+{% block content %}
+<style>
+    /* Centered Box Styling */
+    .center-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh; /* Adjust as needed */
+    }
+
+    /* Form Container Styling */
+    .form-container {
+        text-align: center;
+        background-color: #f2f2f2; /* Light grey background color */
+        padding: 10px; /* Decrease padding for a smaller box */
+        border-radius: 8px; /* Add rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+        max-width: 400px; /* Set the maximum width */
+        width: 100%; /* Make it responsive */
+    }
+
+    h2 {
+        color: #333; /* Heading color */
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555; /* Label color */
+    }
+
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 16px;
+        border: 1px solid #ddd; /* Border color */
+        border-radius: 4px; /* Add rounded corners to the textarea */
+        box-sizing: border-box; /* Ensure padding and border are included in the width */
+    }
+
+    .rating {
+        margin-bottom: 16px;
+    }
+
+    .star {
+        color: #ddd; /* Default star color */
+        cursor: pointer;
+        font-size: 36px; /* Adjust as needed */
+        margin: 0 5px; /* Adjust spacing between stars */
+    }
+
+    .star.selected {
+        color: gold; /* Selected star color */
+    }
+
+    button {
+        background-color: #4caf50;
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px; /* Adjust as needed */
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<div class="center-box">
+    <div class="form-container">
+        <!-- Add Font Awesome stylesheet link -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+        <h2>Add Feedback and Rating</h2>
+        <form id="feedbackForm" method="post" action="/user_add_product_rating/{{product.id}}/">
+            {% csrf_token %}
+            <label for="feedback">Feedback:</label>
+            <textarea name="feedback" rows="4" cols="50"></textarea><br>
+
+            <label for="ratings">Ratings:</label>
+            <div class="rating" id="starRating">
+                <span class="star" data-rating="1"><i class="fas fa-star"></i></span>
+                <span class="star" data-rating="2"><i class="fas fa-star"></i></span>
+                <span class="star" data-rating="3"><i class="fas fa-star"></i></span>
+                <span class="star" data-rating="4"><i class="fas fa-star"></i></span>
+                <span class="star" data-rating="5"><i class="fas fa-star"></i></span>
+            </div>
+
+            <input type="hidden" name="ratings" id="ratingsInput" value="0">
+
+            <button type="submit">Submit</button>
+           
+        </form>
+        <a href="javascript:history.go(-1);" class="btn btn-dark">Back</a>
+    </div>
+   
+</div>
+
+<!-- Include jQuery library -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- JavaScript for star rating -->
+<!-- JavaScript for star rating -->
+<script>
+    $(document).ready(function () {
+        // Initialize star rating
+        $('.star').on('click', function () {
+            var rating = $(this).data('rating');
+            $('#ratingsInput').val(rating);
+
+            // Highlight selected stars
+            $('.star').removeClass('selected');
+            $(this).prevAll().addBack().addClass('selected');
+        });
+
+        // Prevent form submission if no rating is selected
+        $('#feedbackForm').submit(function (event) {
+            if ($('#ratingsInput').val() == 0) {
+                alert('Please select a rating before submitting.');
+                event.preventDefault(); // Prevent form submission
+            } else {
+                alert('Thank you for your ratings and feedback!');
+                // Comment out or remove the following line if you don't want to submit the form
+                // $('#feedbackForm').submit(); 
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}
