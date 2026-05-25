@@ -1,0 +1,166 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<style>
+    .contact_section {
+        background: #f8f9fa;
+        padding: 80px 0;
+    }
+
+    .contact_heading {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .contact_heading h1 {
+        font-size: 42px;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 10px;
+    }
+
+    .contact_heading p {
+        color: #666;
+        font-size: 16px;
+        max-width: 700px;
+        margin: auto;
+    }
+
+    .contact_card {
+        background: #fff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+    }
+
+    .contact_form .form-control {
+        height: 50px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        padding-left: 15px;
+        box-shadow: none;
+    }
+
+    .contact_form textarea.form-control {
+        height: 140px;
+        resize: none;
+        padding-top: 12px;
+    }
+
+    .contact_form .form-control:focus {
+        border-color: #007bff;
+        box-shadow: none;
+    }
+
+    .send_btn {
+        width: 100%;
+        height: 50px;
+        border: none;
+        border-radius: 8px;
+        background: #007bff;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .send_btn:hover {
+        background: #0056b3;
+    }
+
+    .map-responsive iframe {
+        border-radius: 12px;
+        width: 100%;
+        height: 100%;
+        min-height: 520px;
+    }
+
+    @media (max-width: 768px) {
+        .contact_card {
+            margin-top: 30px;
+        }
+    }
+</style>
+
+<div class="contact_section">
+    <div class="container">
+
+        <!-- Heading -->
+        <div class="contact_heading">
+            <h1>Contact Us</h1>
+            <p>
+                Have questions, suggestions, or need support? 
+                Our team is always ready to assist you. 
+                Feel free to reach out to us anytime.
+            </p>
+        </div>
+
+        <div class="row align-items-stretch">
+
+            <!-- Google Map -->
+            <div class="col-lg-6 mb-4">
+                <div class="map-responsive h-100">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.1234567890123!2d90.12345678901234!3d23.12345678901234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c12345678901%3A0x1234567890123456!2sYour%20Company%20Name!5e0!3m2!1sen!2sbd!4v1234567890123"
+                        allowfullscreen=""
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="col-lg-6">
+                <div class="contact_card">
+
+                    <form action="/contact/" method="post" class="contact_form">
+                        {% csrf_token %}
+
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Full Name" 
+                            name="name" 
+                            required>
+
+                        <input 
+                            type="email" 
+                            class="form-control" 
+                            placeholder="Email Address" 
+                            name="email" 
+                            required>
+
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Subject" 
+                            name="subject" 
+                            required>
+
+                        <input 
+                            type="tel" 
+                            class="form-control" 
+                            placeholder="Phone Number" 
+                            name="phone_number" 
+                            required>
+
+                        <textarea 
+                            class="form-control" 
+                            placeholder="Write your message here..." 
+                            name="message" 
+                            required></textarea>
+
+                        <button type="submit" class="send_btn">
+                            Send Message
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

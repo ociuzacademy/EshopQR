@@ -15,7 +15,7 @@ from django.db.models import Avg
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Avg, Count
 from django.core.exceptions import MultipleObjectsReturned
-
+from .models import Contact
 def generate_star_icons(rating):
     full_stars = int(rating)
     half_star = 1 if rating % 1 >= 0.5 else 0
@@ -399,7 +399,7 @@ def user_add_product_rating(request, product_id):
             )
             messages.success(request, 'Rating added successfully!')
 
-        return redirect('/user_view_products/')  # Redirect to the product view page or any other page
+        return redirect('/user_view_category/')  # Redirect to the product view page or any other page
 
     return render(request, 'user/user_add_product_rating.html', {'product': product})
 

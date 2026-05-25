@@ -118,3 +118,9 @@ class salesman_notification(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     
 
+class Contact(models.Model):
+    name = models.CharField(max_length=100, default="")
+    email = models.EmailField(max_length=100, default="")
+    subject = models.CharField(max_length=100, default="")
+    phone_number = models.CharField(max_length=100, default="")
+    message = models.TextField(default="")
